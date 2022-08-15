@@ -1,0 +1,16 @@
+.informationMain {
+  position: absolute;
+  left: 25rem;
+  top: 0;
+  width: calc(100vw - 25rem);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #141d22;
+}
+
+.informationMain h1 {
+  font-size: 6rem;
+}

@@ -1,0 +1,87 @@
+.errorMains {
+  overflow-y: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.navbarMains {
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6rem;
+  /* background-color: #2b2525;
+     */
+  background-color: #afafaf;
+}
+
+.leftSideNavbars {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.vlogos {
+  width: 3.4rem;
+  height: 3.4rem;
+  margin: 0 1.5rem;
+}
+.rightSideNavbars {
+  padding-right: 2rem;
+  height: 6rem;
+}
+.rightSideNavbars ul {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightSideNavbars ul li {
+  margin: 0 1.3rem;
+  list-style: none;
+}
+
+.rightSideNavbars ul li a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-size: 1.6rem;
+  transition: all 0.3s ease;
+}
+
+.rightSideNavbars ul li a:hover {
+  color: #ec2929;
+}
+.errorMsg h1 {
+  font-weight: bold;
+  background-color: rgba(128, 128, 128, 0.849);
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.534), 0 -2rem -4rem rgba(0, 0, 0, 0.534);
+  border-radius: 1rem;
+  padding: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  color: rgb(0, 0, 0);
+  font-size: 4rem;
+  animation: zoom-up 3s linear infinite;
+}
+@keyframes zoom-up {
+  0% {
+    font-size: 4rem;
+  }
+  50% {
+    font-size: 6rem;
+  }
+  100% {
+    font-size: 4rem;
+  }
+}
+.errorImg {
+  object-fit: cover;
+  background-position: top;
+  width: 100%;
+  height: 105%;
+}
