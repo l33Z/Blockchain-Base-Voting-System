@@ -1,14 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Welcome.css";
 import SideNavbar from "../../Components/SideNavbar";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast, Flip } from "react-toastify";
 
 const Welcome = () => {
+  const navigate = useNavigate();
+  const [currentVoter, setCurrentVoter] = useState("");
+
+  //////////////////////////////// RETRIVING DATA FROM API ////////////////////////////////
+  const getCurrentVoter = async () => {
+    try {
+      const response = await fetch("/api/welcomee", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const data = await response.json();
+      setCurrentVoter(data);
+      if (response.status === 401) {
+        navigate("/login");
+        setTimeout(function () {
+          toast.error(data, {
+            style: {
+              fontSize: "15px",
+              letterSpacing: "1px",
+            },
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }, 1000);
+      }
+
+      if (!response.status === 200) {
+        throw new Error(response.error);
+      }
+    } catch (e) {
+      console.log("Errorrrrr : " + e);
+      navigate("/login");
+    }
+  };
+  useEffect(() => {
+    getCurrentVoter();
+  }, []);
+
   return (
     <>
       <SideNavbar />
       <div className="welcomeContainer">
+        <ToastContainer theme="colored" />
         <div className="topWlcomePart">
-          <h1>👋 Hello, Zeel Rabadiya</h1>
+          <h1>👋 Hello, {currentVoter}</h1>
           <button id="metaBtn">Connect To Metamask</button>
         </div>
 

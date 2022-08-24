@@ -10,6 +10,8 @@ import VoteRegistration from "./Pages/Level 2/VoteRegistration";
 import VotingArea from "./Pages/Level 2/VotingArea";
 import Result from "./Pages/Level 2/Result";
 import AddCandidates from "./Pages/AdminOnly/AddCandidates";
+import Logout from "./Pages/Level 2/Logout";
+
 const App = () => {
   return (
     <>
@@ -23,6 +25,8 @@ const App = () => {
         <Route path="/votingarea" element={<VotingArea />} />
         <Route path="/result" element={<Result />} />
         <Route path="/addcandidates" element={<AddCandidates />} />
+        <Route path="/logout" element={<Logout />} />
+
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

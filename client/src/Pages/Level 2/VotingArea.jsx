@@ -1,15 +1,35 @@
-import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SideNavbar from "../../Components/SideNavbar";
 import "./VotingArea.css";
-import modi from "../../assets/modi.jpg";
-import rahul from "../../assets/rahul.jpg";
-import kejriwal from "../../assets/kejriwal.jpg";
-
+import userPng from "../../assets/user.png";
 const VotingArea = () => {
   const [canName, setcanName] = useState("");
   const [canParty, setcanParty] = useState("");
   const [canImg, setcanImg] = useState("");
+  const [canage, setcanage] = useState("");
+
+  const [Candidates, setCandidates] = useState([]);
+
+  //////////////////////////////// RETRIVING DATA FROM API ////////////////////////////////
+  const getCandidatesData = async () => {
+    const response = await fetch("/api/allcandidates", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    if (response.status === 200) {
+      setCandidates(data);
+    } else {
+      throw new Error(response.error);
+    }
+  };
+  useEffect(() => {
+    getCandidatesData();
+  }, []);
 
   return (
     <>
@@ -44,7 +64,7 @@ const VotingArea = () => {
                 <div className="rightModalSide">
                   <h2>Name : {canName}</h2>
                   <h2>Party : {canParty}</h2>
-                  <h2>Age : 71 Years Old</h2>
+                  <h2>Age : {canage}</h2>
                 </div>
               </div>
             </div>
@@ -67,142 +87,63 @@ const VotingArea = () => {
           </div>
         </div>
       </div>
+      ///////////////////////////// MODAL END //////////////////////////////
       <div className="votingAreaConatiner">
         <div className="votingAreaMain">
           <h1>Candidates</h1>
-
           <div className="candidates">
-            <div className="candidateBox">
-              <img src={modi} alt="img" id="candidateImg" />
-              <div className="candidateName">
-                <h2>
-                  Name : <span id="cname">Narendra Modi</span>{" "}
-                </h2>
-                <h2>
-                  Party : <span id="cparty">BJP</span>
-                </h2>
-              </div>
-              <button
-                className="voteCandidateBtn"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-                onClick={(e) => {
-                  setcanImg(
-                    e.target.parentNode.querySelector("#candidateImg").src
-                  );
-                  setcanName(
-                    e.target.parentNode
-                      .querySelector("#cname")
-                      .innerHTML.toString()
-                  );
-                  setcanParty(
-                    e.target.parentNode.querySelector("#cparty").innerHTML
-                  );
-                }}
-              >
-                Vote
-              </button>
-            </div>
+            {Candidates.map((can) => {
+              return (
+                <div className="candidateBox" key={can._id}>
+                  <img
+                    src={`/uploads/${can.CandidateImage}`}
+                    alt="img"
+                    id="candidateImg"
+                  />
+                  <div className="candidateName">
+                    <h2>
+                      Name : <span id="cname">{can.CandidateName}</span>
+                    </h2>
+                    <h2>
+                      Party : <span id="cparty">{can.CandidatePartyName}</span>
+                    </h2>
 
-            <div className="candidateBox">
-              <img src={rahul} alt="img" id="candidateImg" />
-              <div className="candidateName">
-                <h2>
-                  Name : <span id="cname">Rahul Gandhi</span>{" "}
-                </h2>
-                <h2>
-                  Party : <span id="cparty">CONGRESS</span>
-                </h2>
-              </div>
-              <button
-                className="voteCandidateBtn"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-                onClick={(e) => {
-                  setcanImg(
-                    e.target.parentNode.querySelector("#candidateImg").src
-                  );
-                  setcanName(
-                    e.target.parentNode
-                      .querySelector("#cname")
-                      .innerHTML.toString()
-                  );
-                  setcanParty(
-                    e.target.parentNode
-                      .querySelector("#cparty")
-                      .innerHTML.toString()
-                  );
-                }}
-              >
-                Vote
-              </button>
-            </div>
-            <div className="candidateBox">
-              <img src={kejriwal} alt="img" id="candidateImg" />
-              <div className="candidateName">
-                <h2>
-                  Name : <span id="cname">Arvind Kejriwal</span>
-                </h2>
-                <h2>
-                  Party : <span id="cparty">AAP</span>
-                </h2>
-              </div>
-              <button
-                className="voteCandidateBtn"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-                onClick={(e) => {
-                  setcanImg(
-                    e.target.parentNode.querySelector("#candidateImg").src
-                  );
-                  setcanName(
-                    e.target.parentNode
-                      .querySelector("#cname")
-                      .innerHTML.toString()
-                  );
-                  setcanParty(
-                    e.target.parentNode
-                      .querySelector("#cparty")
-                      .innerHTML.toString()
-                  );
-                }}
-              >
-                Vote
-              </button>
-            </div>
-            <div className="candidateBox">
-              <img src={kejriwal} alt="img" id="candidateImg" />
-              <div className="candidateName">
-                <h2>
-                  Name : <span id="cname">Arvind Kejriwal</span>
-                </h2>
-                <h2>
-                  Party : <span id="cparty">AAP</span>
-                </h2>
-              </div>
-              <button
-                className="voteCandidateBtn"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-                onClick={(e) => {
-                  setcanImg(
-                    e.target.parentNode.querySelector("#candidateImg").src
-                  );
-                  setcanName(
-                    e.target.parentNode
-                      .querySelector("#cname")
-                      .innerHTML.toString()
-                  );
-                  setcanParty(
-                    e.target.parentNode
-                      .querySelector("#cparty")
-                      .innerHTML.toString()
-                  );
-                }}
-              >
-                Vote
-              </button>
-            </div>
+                    <h6 id="cage">{can.CandidateAge}</h6>
+                  </div>
+                  <div className="btnGroupCan">
+                    <button
+                      className="infoCandidateBtn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                      onClick={(e) => {
+                        setcanImg(
+                          e.target.parentNode.parentNode.querySelector(
+                            "#candidateImg"
+                          ).src
+                        );
+                        setcanName(
+                          e.target.parentNode.parentNode
+                            .querySelector("#cname")
+                            .innerHTML.toString()
+                        );
+                        setcanParty(
+                          e.target.parentNode.parentNode.querySelector(
+                            "#cparty"
+                          ).innerHTML
+                        );
+                        setcanage(
+                          e.target.parentNode.parentNode.querySelector("#cage")
+                            .innerHTML
+                        );
+                      }}
+                    >
+                      Info
+                    </button>
+                    <button className="voteCandidateBtn">Vote</button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

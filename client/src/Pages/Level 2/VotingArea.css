@@ -15,7 +15,10 @@
   background: #12181b !important;
   color: white !important;
 }
-
+.btn-close {
+  color: white !important;
+  background-color: white !important;
+}
 .mainModal {
   display: flex;
   justify-content: center;
@@ -31,7 +34,7 @@
 }
 .leftModalSide img {
   width: 80%;
-  height: 80%;
+  max-height: 60vh;
   object-fit: cover;
 }
 .rightModalSide {
@@ -76,8 +79,11 @@
   align-items: center;
   padding: 2rem;
   border-radius: 1rem;
-  background: rgb(20, 19, 19);
-  max-width: 30%;
+  /* background: rgb(20, 19, 19);
+   */
+  background: rgba(216, 244, 255, 0.132);
+
+  width: 30%;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
 }
 
@@ -85,7 +91,7 @@
   background-position: center;
   border-radius: 3px;
   width: 100%;
-  height: 30rem;
+  height: 35rem;
   object-fit: cover;
 }
 .candidateName {
@@ -97,17 +103,39 @@
   margin-bottom: 1rem;
   padding-left: 1rem;
 }
-
+.candidateName h6 {
+  display: none;
+  pointer-events: none;
+}
+.btnGroupCan {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.infoCandidateBtn {
+  width: 100%;
+  font-size: 1.7rem;
+  padding: 0.4rem 0;
+  outline: none;
+  background-color: #09c372;
+  border-radius: 3px;
+  border: none;
+  transition: 0.2s;
+  margin-right: 0.7rem;
+}
 .voteCandidateBtn {
   width: 100%;
   font-size: 1.7rem;
   padding: 0.4rem 0;
   outline: none;
-  background-color: #0b5ed7;
-  border-radius: 5px;
+  border: none;
+  background-color: #3b82f6;
+  border-radius: 3px;
   transition: 0.2s;
 }
 
-.voteCandidateBtn:hover {
+.voteCandidateBtn:hover,
+.infoCandidateBtn:hover {
   transform: translateY(-3px);
 }

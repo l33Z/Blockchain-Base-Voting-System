@@ -31,7 +31,7 @@ const Home = () => {
                 }}
                 autoplay={{
                   delay: 1000,
-                  //   disableOnInteraction: false,
+                  disableOnInteraction: false,
                 }}
                 modules={[Pagination, Autoplay]}
                 className="mySwiper votingImagesContainer"

@@ -16,14 +16,7 @@ const Navbar = () => {
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink
-                to="/login"
-                // style={({ isActive }) => {
-                //   color: isActive ? "#7600dc" : "#f0f0f0";
-                // }}
-              >
-                Login
-              </NavLink>
+              <NavLink to="/login">Login</NavLink>
             </li>
             <li>
               <NavLink to="/registration">Register</NavLink>

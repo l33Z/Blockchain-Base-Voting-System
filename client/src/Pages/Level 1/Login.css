@@ -4,8 +4,6 @@
   justify-content: center;
   width: 100vw;
   height: calc(100vh - 6rem);
-  /* background-color: #242424; */
-  /* background-color: #18181b; */
   background-color: #141d22;
 }
 .LoginMain {
@@ -34,8 +32,6 @@
 
 .rightSideLogin {
   background: #12181b;
-  /* background-color: rgb(168, 213, 210); */
-  /* background-color: rgb(192, 208, 162); */
   /* background: linear-gradient(right, rgb(192, 208, 162), rgb(150, 164, 124)); */
   display: flex;
   justify-content: start;
@@ -105,7 +101,6 @@
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   border-radius: 0.5rem;
-  /* background-color: wheat; */
 }
 .inputBox .fa-solid {
   font-size: 1.5rem;
@@ -120,7 +115,6 @@
   border: none;
   outline: none;
   font-size: 1.6rem;
-  /* background-color: rgb(232, 240, 240); */
   background-color: transparent;
 }
 .inputBox:hover {
@@ -133,7 +127,6 @@
   padding: 0.8rem 0;
   outline: none;
   border: none;
-  /* background-color: rgb(249, 191, 115); */
   background-color: #3b82f6;
   margin-top: 2.2rem;
   border-radius: 1.3rem;

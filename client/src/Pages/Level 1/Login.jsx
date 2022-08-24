@@ -4,24 +4,106 @@ import Navbar from "../../Components/Navbar";
 import loginBg from "../../assets/girlLogin.jpg";
 import voteBg from "../../assets/vote.png";
 import "./Login.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { ToastContainer, toast, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  let navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Handling the login
-  const loginFunc = () => {
-    if (email === "" && password === "") {
-      alert("Please enter your email address");
+  ////////////////////////////////// Handling the login //////////////////////////////
+  const loginFunc = async (e) => {
+    e.preventDefault();
+
+    if (email !== "" && password !== "") {
+      const response = await fetch("/api/loginvoter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      /////////////// For INVALID PASSWORD //////////////
+      if (response.status === 401) {
+        toast.error(data, {
+          style: {
+            fontSize: "15px",
+            letterSpacing: "1px",
+          },
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+      /////////////// For INVALID EMAIL //////////////
+      else if (response.status === 400) {
+        toast.error(data, {
+          style: {
+            fontSize: "15px",
+            letterSpacing: "1px",
+          },
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+      /////////////// For LOGIN //////////////
+      else if (response.status === 200) {
+        setTimeout(function () {
+          navigate("/welcome");
+        }, 3000);
+
+        toast.success(data, {
+          style: {
+            fontSize: "15px",
+            letterSpacing: "1px",
+          },
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } else {
-      alert("id " + email + "\npassword " + password);
+      toast.error("Fill all Details !!", {
+        style: {
+          fontSize: "18px",
+          letterSpacing: "1px",
+        },
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+      return;
     }
   };
   return (
     <>
       <Navbar />
       <div className="LoginContainer">
+        <ToastContainer theme="colored" />
         <div className="LoginMain">
           <div className="leftSideLogin">
             <img src={loginBg} alt="LoginLogo" className="loginBg" />
@@ -36,7 +118,7 @@ const Login = () => {
             </div>
 
             <h3>Login Here</h3>
-            <form action="#" method="post" className="formOfLogin">
+            <form action="/login" method="post" className="formOfLogin">
               <div className="inputBox">
                 <i className="fa-solid fa-user"></i>
                 <input
@@ -45,7 +127,6 @@ const Login = () => {
                   name="userEmail"
                   placeholder="Enter your Email"
                   id="userEmail"
-                  autoComplete="off"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
