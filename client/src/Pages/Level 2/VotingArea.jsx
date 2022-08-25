@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import SideNavbar from "../../Components/SideNavbar";
 import "./VotingArea.css";
 import userPng from "../../assets/user.png";
+import { ToastContainer, toast, Flip } from "react-toastify";
+
 const VotingArea = () => {
   const [canName, setcanName] = useState("");
   const [canParty, setcanParty] = useState("");
@@ -31,9 +33,101 @@ const VotingArea = () => {
     getCandidatesData();
   }, []);
 
+  //////////////////////////////// VOTE COUNT FUNC ////////////////////////////////
+  const VoteCountFunc = async (e) => {
+    const CanDidateName = e.target.parentNode.parentNode
+      .querySelector("#cname")
+      .innerHTML.toString();
+
+    const responseForUpdationVoter = await fetch("/api/currentvoter", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const DataForVoter = await responseForUpdationVoter.json();
+
+    if (responseForUpdationVoter.status === 201) {
+      const response = await fetch("/api/countvotes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          currentcandidatename: CanDidateName,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 201) {
+        toast.success(data, {
+          style: {
+            fontSize: "15px",
+            letterSpacing: "1px",
+          },
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        toast.error("Somthing Went Wrong !!", {
+          style: {
+            fontSize: "18px",
+            letterSpacing: "1px",
+          },
+          position: "bottom-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          transition: Flip,
+        });
+      }
+    } else if (responseForUpdationVoter.status === 401) {
+      toast.error(DataForVoter, {
+        style: {
+          fontSize: "18px",
+          letterSpacing: "1px",
+        },
+        position: "bottom-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+    } else {
+      toast.error(DataForVoter, {
+        style: {
+          fontSize: "18px",
+          letterSpacing: "1px",
+        },
+        position: "bottom-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+    }
+  };
+
   return (
     <>
       <SideNavbar />
+      <ToastContainer theme="colored" />
       <div
         className="modal fade modal-dialog modal-xl"
         id="staticBackdrop"
@@ -139,7 +233,12 @@ const VotingArea = () => {
                     >
                       Info
                     </button>
-                    <button className="voteCandidateBtn">Vote</button>
+                    <button
+                      className="voteCandidateBtn"
+                      onClick={VoteCountFunc}
+                    >
+                      Vote
+                    </button>
                   </div>
                 </div>
               );

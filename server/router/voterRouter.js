@@ -57,7 +57,7 @@ router.post("/api/registervoter", async (req, res) => {
 
 router.post("/api/loginvoter", async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   const findVoter = await Voter.findOne({ email: email });
   if (findVoter !== null) {
     const validPassword = await bcrypt.compare(
@@ -68,7 +68,7 @@ router.post("/api/loginvoter", async (req, res) => {
     if (validPassword) {
       // Calling Generating Function From VoterSchema
       const token = await findVoter.generateToken();
-    
+
       res.cookie("jwt_token", token, {
         expires: new Date(Date.now() + 86400000),
         httpOnly: true,
@@ -101,8 +101,29 @@ router.post("/api/voteregistration", async (req, res) => {
     findVoter.city = city;
     findVoter.rstate = rstate;
     findVoter.address = address;
-
+    findVoter.save();
     res.status(201).json("Registerd Successfully");
+  } catch (e) {
+    res.status(400).json("Somthing Went Wrong !!");
+  }
+});
+
+//////////////////////////////////// FOR VOTE UPDATION //////////////////////////////////
+// router.get("/api/currentvoter", authentication, async (req, res) => {
+//   res.send(req.currentVoterName);
+// });
+
+router.post("/api/currentvoter", authentication, async (req, res) => {
+  try {
+    const currentVoter = await Voter.findOne({ _id: req.currentVoterId });
+
+    if (currentVoter.isVoted) {
+      res.status(401).json("You Already voted for this Election");
+    } else {
+      currentVoter.isVoted = true;
+      currentVoter.save();
+      res.status(201).json("Your Vote Is Successfully Counted");
+    }
   } catch (e) {
     res.status(400).json("Somthing Went Wrong !!");
   }

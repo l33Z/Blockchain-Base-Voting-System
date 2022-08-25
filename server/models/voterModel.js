@@ -43,6 +43,7 @@ const VoterSchema = new mongoose.Schema(
 
     adharCard: {
       type: Number,
+      
     },
     voterId: {
       type: Number,

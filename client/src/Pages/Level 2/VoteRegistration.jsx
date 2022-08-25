@@ -111,6 +111,54 @@ const VoteRegistration = () => {
       rstate !== "" &&
       address !== ""
     ) {
+      if (age < 18 || age > 100) {
+        toast.error("Age is Not Valid", {
+          style: {
+            fontSize: "15px",
+            letterSpacing: "1px",
+          },
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        return;
+      }
+      if (adharCard.length !== 12) {
+        toast.error("Adhar Card Number must be 12 Numbers", {
+          style: {
+            fontSize: "15px",
+            letterSpacing: "1px",
+          },
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        return;
+      }
+      if (voterno.length !== 10) {
+        toast.error("Voter Card Number must be 10 Numbers", {
+          style: {
+            fontSize: "15px",
+            letterSpacing: "1px",
+          },
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        return;
+      }
       const response = await fetch("/api/voteregistration", {
         method: "POST",
         headers: {
@@ -147,7 +195,7 @@ const VoteRegistration = () => {
         setTimeout(function () {
           navigate("/votingarea");
         }, 2200);
-        
+
         toast.success(data, {
           style: {
             fontSize: "15px",
@@ -162,15 +210,15 @@ const VoteRegistration = () => {
           progress: undefined,
         });
 
-        setVoterDetails({
-          adharCard: "",
-          voterno: "",
-          birthdate: "",
-          age: "",
-          city: "",
-          rstate: "",
-          address: "",
-        });
+        // setVoterDetails({
+        //   adharCard: "",
+        //   voterno: "",
+        //   birthdate: "",
+        //   age: "",
+        //   city: "",
+        //   rstate: "",
+        //   address: "",
+        // });
       }
     } else {
       toast.error("Fill all Details !!", {

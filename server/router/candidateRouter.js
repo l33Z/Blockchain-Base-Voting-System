@@ -47,4 +47,34 @@ router.get("/api/allcandidates", async (req, res) => {
   }
 });
 
+//////////////////////////////////// FOR RESULT CANDIDATES LIST //////////////////////////////////
+router.get("/api/resultcandidates", async (req, res) => {
+  const allCamdidates = await Candidate.find({}).sort({ TotalVotes: -1 });
+  if (allCamdidates.length == 0) {
+    res.status(400).json("No Candidate found");
+  } else {
+    res.status(200).json(allCamdidates);
+  }
+});
+
+//////////////////////////////////// FOR CANDIDATES UPDATE VOTES //////////////////////////////////
+router.post("/api/countvotes", async (req, res) => {
+  try {
+    const currentcandidatename = req.body.currentcandidatename;
+
+    const CurrentCandidate = await Candidate.findOne({
+      CandidateName: currentcandidatename,
+    });
+    CurrentCandidate.TotalVotes++;
+    await CurrentCandidate.save();
+    res
+      .status(201)
+      .json(
+        "Your Vote Count Successfully for " + CurrentCandidate.CandidateName
+      );
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
 module.exports = router;

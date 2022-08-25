@@ -42,6 +42,21 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/api/countvotes": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/api/currentvoter": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/api/resultcandidates": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });

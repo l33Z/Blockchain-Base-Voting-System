@@ -1,10 +1,33 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import SideNavbar from "../../Components/SideNavbar";
 import "./Result.css";
 import modi from "../../assets/modi.jpg";
 import party from "../../assets/party.png";
 
 const Result = () => {
+  const [Candidates, setCandidates] = useState([]);
+
+  const getCandidatesData = async () => {
+    const response = await fetch("/api/resultcandidates", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    if (response.status === 200) {
+      setCandidates(data);
+    } else {
+      throw new Error(response.error);
+    }
+  };
+  useEffect(() => {
+    getCandidatesData();
+  }, []);
+
+  var CandidatePostionId = 1;
   return (
     <>
       <SideNavbar />
@@ -40,42 +63,16 @@ const Result = () => {
               </thead>
 
               <tbody className="runnerUpTableBody">
-                <tr>
-                  <td>1</td>
-                  <td>Narendra Modi</td>
-                  <td>BJP</td>
-                  <td>562</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Rahul Gandhi</td>
-                  <td>Congress</td>
-                  <td>400</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Arvind Kejriwal</td>
-                  <td>AAP</td>
-                  <td>350</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Arvind Kejriwal</td>
-                  <td>AAP</td>
-                  <td>350</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Arvind Kejriwal</td>
-                  <td>AAP</td>
-                  <td>350</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Arvind Kejriwal</td>
-                  <td>AAP</td>
-                  <td>350</td>
-                </tr>
+                {Candidates.map((can) => {
+                  return (
+                    <tr key={can._id}>
+                      <td>{CandidatePostionId++}</td>
+                      <td>{can.CandidateName}</td>
+                      <td>{can.CandidatePartyName}</td>
+                      <td>{can.TotalVotes}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
