@@ -3,8 +3,10 @@ import SideNavbar from "../../Components/SideNavbar";
 import "./VotingArea.css";
 import userPng from "../../assets/user.png";
 import { ToastContainer, toast, Flip } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const VotingArea = () => {
+  const navigate = useNavigate();
   const [canName, setcanName] = useState("");
   const [canParty, setcanParty] = useState("");
   const [canImg, setcanImg] = useState("");
@@ -29,8 +31,13 @@ const VotingArea = () => {
       throw new Error(response.error);
     }
   };
+
+  var zz = true;
   useEffect(() => {
-    getCandidatesData();
+    if (zz) {
+      getCandidatesData();
+      zz = false;
+    }
   }, []);
 
   //////////////////////////////// VOTE COUNT FUNC ////////////////////////////////
@@ -112,7 +119,7 @@ const VotingArea = () => {
           fontSize: "18px",
           letterSpacing: "1px",
         },
-        position: "bottom-center",
+        position: "bottom-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -121,6 +128,9 @@ const VotingArea = () => {
         progress: undefined,
         transition: Flip,
       });
+      setTimeout(() => {
+        navigate("/voteregistration");
+      }, 2500);
     }
   };
 

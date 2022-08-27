@@ -11,6 +11,11 @@ import VotingArea from "./Pages/Level 2/VotingArea";
 import Result from "./Pages/Level 2/Result";
 import AddCandidates from "./Pages/AdminOnly/AddCandidates";
 import Logout from "./Pages/Level 2/Logout";
+import AdminLogin from "./Pages/AdminOnly/AdminLogin";
+import AdminWelcome from "./Pages/AdminOnly/AdminWelcome";
+import AllCandidates from "./Pages/AdminOnly/AllCandidates";
+import AdminResult from "./Pages/AdminOnly/AdminResult";
+import AddAdmin from "./Pages/AdminOnly/AddAdmin";
 
 const App = () => {
   return (
@@ -26,7 +31,12 @@ const App = () => {
         <Route path="/result" element={<Result />} />
         <Route path="/addcandidates" element={<AddCandidates />} />
         <Route path="/logout" element={<Logout />} />
-
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/adminwelcome" element={<AdminWelcome />} />
+        <Route path="/adminallcandidates" element={<AllCandidates />} />
+        <Route path="/adminresult" element={<AdminResult />} />
+        <Route path="/addnewadmin" element={<AddAdmin />} />
+        addnewadmin
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

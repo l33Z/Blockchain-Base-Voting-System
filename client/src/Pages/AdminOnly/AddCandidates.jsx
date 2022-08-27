@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./AddCandidates.css";
-import SideNavbar from "../../Components/SideNavbar";
+import AdminSideNavbar from "../../Components/AdminSideNavbar";
 import { ToastContainer, toast, Flip } from "react-toastify";
 
 const AddCandidates = () => {
@@ -102,7 +102,7 @@ const AddCandidates = () => {
   };
   return (
     <>
-      <SideNavbar />
+      <AdminSideNavbar />
       <div className="addCandidatesConatiner">
         <ToastContainer theme="colored" />
         <div className="addCandidateMain">
@@ -154,7 +154,7 @@ const AddCandidates = () => {
                   required
                 />
               </div>
-              
+
               <div className=" fileInputBox">
                 <i className="fa-solid fa-folder"></i>
                 <input

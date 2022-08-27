@@ -13,61 +13,21 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const ValidateEmail = (mail) => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   ////////////////////////////////// Handling the login //////////////////////////////
   const loginFunc = async (e) => {
     e.preventDefault();
 
     if (email !== "" && password !== "") {
-      const response = await fetch("/api/loginvoter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      const data = await response.json();
-
-      /////////////// For INVALID PASSWORD //////////////
-      if (response.status === 401) {
-        toast.error(data, {
-          style: {
-            fontSize: "15px",
-            letterSpacing: "1px",
-          },
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-      /////////////// For INVALID EMAIL //////////////
-      else if (response.status === 400) {
-        toast.error(data, {
-          style: {
-            fontSize: "15px",
-            letterSpacing: "1px",
-          },
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-      /////////////// For LOGIN //////////////
-      else if (response.status === 200) {
-        setTimeout(function () {
-          navigate("/welcome");
-        }, 3000);
-
-        toast.success(data, {
+      if (!ValidateEmail(email)) {
+        toast.error("Enter a valid email address", {
           style: {
             fontSize: "15px",
             letterSpacing: "1px",
@@ -76,10 +36,74 @@ const Login = () => {
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
         });
+      } else {
+        const response = await fetch("/api/loginvoter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        });
+
+        const data = await response.json();
+
+        /////////////// For INVALID PASSWORD //////////////
+        if (response.status === 401) {
+          toast.error(data, {
+            style: {
+              fontSize: "15px",
+              letterSpacing: "1px",
+            },
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+        /////////////// For INVALID EMAIL //////////////
+        else if (response.status === 400) {
+          toast.error(data, {
+            style: {
+              fontSize: "15px",
+              letterSpacing: "1px",
+            },
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+        /////////////// For LOGIN //////////////
+        else if (response.status === 200) {
+          setTimeout(function () {
+            navigate("/welcome");
+          }, 3000);
+
+          toast.success(data, {
+            style: {
+              fontSize: "15px",
+              letterSpacing: "1px",
+            },
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       }
     } else {
       toast.error("Fill all Details !!", {
@@ -154,6 +178,7 @@ const Login = () => {
             <div className="moreoption">
               <h5>Not registered yet ? </h5>
               <NavLink to="/registration">Create an Account</NavLink>
+              <NavLink to="/admin">Admin</NavLink>
             </div>
           </div>
         </div>

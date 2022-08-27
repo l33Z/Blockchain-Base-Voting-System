@@ -1,64 +1,57 @@
 import React from "react";
 import { useState } from "react";
-import "./SideNavbar.css";
+import "./AdminSideNavbar.css";
 import { NavLink } from "react-router-dom";
 const SideNavbar = () => {
   const [adminOnly, setadminOnly] = useState(true);
 
   return (
     <>
-      <div className="sideNavbarConatiner">
-        <div className="sideNavbarMain">
-          <div className="topPart">
+      <div className="AdminsideNavbarConatiner">
+        <div className="AdminsideNavbarMain">
+          <div className="AdmintopPart">
             <h2>Secure Voting System</h2>
           </div>
 
-          <div className="links">
-            <div className="link">
-              <NavLink to="/welcome">
+          <div className="Alinks">
+            <div className="Alink">
+              <NavLink to="/adminwelcome">
                 <i className="fa-solid fa-face-smile"></i>
                 Welcome
               </NavLink>
             </div>
 
-            {/* {adminOnly && (
-              <div className="link">
+            {adminOnly && (
+              <div className="Alink">
                 <NavLink to="/addcandidates">
                   <i className="fa-solid fa-person-circle-plus"></i>
                   Add Candidate
                 </NavLink>
               </div>
-            )} */}
+            )}
 
-            <div className="link">
-              <NavLink to="/information">
-                <i className="fa-solid fa-circle-info"></i>
-                Information
-              </NavLink>
-            </div>
-
-            <div className="link">
-              <NavLink to="/voteregistration">
-                <i className="fa-solid fa-chalkboard-user"></i>
-                Vote Registartion
-              </NavLink>
-            </div>
-
-            <div className="link">
-              <NavLink to="/votingarea">
+            <div className="Alink">
+              <NavLink to="/adminallcandidates">
                 <i className="fa-solid fa-house-lock"></i>
-                Voting Area
+                All Candidates
               </NavLink>
             </div>
 
-            <div className="link">
-              <NavLink to="/result">
+            <div className="Alink">
+              <NavLink to="/adminresult">
                 <i className="fa-solid fa-square-poll-vertical"></i>
                 Result
               </NavLink>
             </div>
 
-            <div className="link">
+            <div className="Alink">
+              <NavLink to="/addnewadmin">
+                <i className="fa-solid fa-user-plus"></i>
+                Add New Admin
+              </NavLink>
+            </div>
+
+            <div className="Alink">
               <NavLink to="/logout">
                 <i className="fa-solid fa-right-from-bracket"></i>
                 Log Out

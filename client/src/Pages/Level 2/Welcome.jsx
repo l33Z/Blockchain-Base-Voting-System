@@ -59,7 +59,9 @@ const Welcome = () => {
       <div className="welcomeContainer">
         <ToastContainer theme="colored" />
         <div className="topWlcomePart">
-          <h1>👋 Hello, {currentVoter}</h1>
+          <h1>
+            <span id="wave">👋</span> Hello, {currentVoter}
+          </h1>
           <button id="metaBtn">Connect To Metamask</button>
         </div>
 

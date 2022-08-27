@@ -11,3 +11,15 @@ html {
 body {
   background: #141d22 !important;
 }
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #141D22;
+}
+::-webkit-scrollbar-thumb {
+  background: #4684ef58;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4684EF;
+}

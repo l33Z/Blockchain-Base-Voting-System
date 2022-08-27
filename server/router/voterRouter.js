@@ -116,13 +116,18 @@ router.post("/api/voteregistration", async (req, res) => {
 router.post("/api/currentvoter", authentication, async (req, res) => {
   try {
     const currentVoter = await Voter.findOne({ _id: req.currentVoterId });
-
-    if (currentVoter.isVoted) {
-      res.status(401).json("You Already voted for this Election");
+    console.log(currentVoter);
+    console.log(currentVoter.voterId);
+    if (currentVoter.voterId === undefined) {
+      res.status(400).json("Please Register First For Vote");
     } else {
-      currentVoter.isVoted = true;
-      currentVoter.save();
-      res.status(201).json("Your Vote Is Successfully Counted");
+      if (currentVoter.isVoted) {
+        res.status(401).json("You Already voted for this Election");
+      } else {
+        currentVoter.isVoted = true;
+        currentVoter.save();
+        res.status(201).json("Your Vote Is Successfully Counted");
+      }
     }
   } catch (e) {
     res.status(400).json("Somthing Went Wrong !!");

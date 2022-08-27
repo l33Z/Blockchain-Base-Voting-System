@@ -8,6 +8,7 @@
   flex-direction: column;
   background: #141d22;
 }
+
 .topWlcomePart {
   display: flex;
   justify-content: space-between;
@@ -18,10 +19,54 @@
   /* background-color: #0178b8; */
   /* margin-top: 5rem; */
 }
+
 .topWlcomePart h1 {
   letter-spacing: 1px;
   font-size: 3.4rem;
 }
+
+#wave {
+  display: inline-block;
+  animation: waves 2s ease infinite;
+  font-size: 4rem;
+  transform-origin: 70% 70%;
+}
+
+@keyframes waves {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  10% {
+    -webkit-transform: rotate(14deg);
+    transform: rotate(14deg);
+  }
+  20% {
+    -webkit-transform: rotate(-8deg);
+    transform: rotate(-8deg);
+  }
+  30% {
+    -webkit-transform: rotate(14deg);
+    transform: rotate(14deg);
+  }
+  40% {
+    -webkit-transform: rotate(-4deg);
+    transform: rotate(-4deg);
+  }
+  50% {
+    -webkit-transform: rotate(10deg);
+    transform: rotate(10deg);
+  }
+  60% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
+
 .topWlcomePart #metaBtn {
   margin-right: 7rem;
   outline: none;

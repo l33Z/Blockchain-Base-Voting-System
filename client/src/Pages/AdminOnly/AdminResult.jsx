@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import SideNavbar from "../../Components/SideNavbar";
-import "./Result.css";
+import AdminSideNavbar from "../../Components/AdminSideNavbar";
+import "./AdminResult.css";
+import modi from "../../assets/modi.jpg";
 import party from "../../assets/party.png";
 
 const Result = () => {
   const [Candidates, setCandidates] = useState([]);
-  const [winnerHeading, setwinnerHeading] = useState("Winner 🎉 is");
+
   const getCandidatesData = async () => {
     const response = await fetch("/api/resultcandidates", {
       method: "GET",
@@ -18,9 +19,6 @@ const Result = () => {
     const data = await response.json();
     if (response.status === 200) {
       setCandidates(data);
-      if (data[0].TotalVotes === data[1].TotalVotes) {
-        setwinnerHeading("Election Is Draw");
-      }
     } else {
       throw new Error(response.error);
     }
@@ -32,34 +30,27 @@ const Result = () => {
   var CandidatePostionId = 1;
   return (
     <>
-      <SideNavbar />
-      <div className="resultConatiner">
-        <div className="resultMain">
-          {Candidates[0] && (
-            <div className="renderCondition">
-              <h1>Result Area</h1>
-              <div className="winnerInfo">
-                <div className="winnerImg">
-                  <img
-                    src={`/uploads/${Candidates[0].CandidateImage}`}
-                    alt="winner"
-                  />
-                </div>
-                <div className="winnerName">
-                  <h3 id="winnerHead">
-                    <span id="PopperDiv">
-                      <img src={party} alt="popper" id="partyPopperImg" />
-                    </span>
-                    {winnerHeading}
-                  </h3>
-
-                  <h2> Name : {Candidates[0].CandidateName}</h2>
-                  <h2> Party : {Candidates[0].CandidatePartyName}</h2>
-                  <h2> Total Votes : {Candidates[0].TotalVotes} </h2>
-                </div>
-              </div>
+      <AdminSideNavbar />
+      <div className="AdminresultConatiner">
+        <div className="AdminresultMain">
+          <h1>Result Area</h1>
+          <div className="AdminwinnerInfo">
+            <div className="winnerImg">
+              <img src={modi} alt="winner" />
             </div>
-          )}
+            <div className="winnerName">
+              <h3 id="winnerHead">
+                <span id="PopperDiv">
+                  <img src={party} alt="popper" id="partyPopperImg" />
+                </span>
+                Winner 🎉 is
+              </h3>
+              <h2> Name : Narendra Modi</h2>
+              <h2> Party : Bhajap</h2>
+              <h2> Total Votes : 562 </h2>
+            </div>
+          </div>
+
           <div className="runnerUpTableConatiner">
             <table className="runnerUpTable">
               <thead className="table-heading">

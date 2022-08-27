@@ -1,0 +1,66 @@
+.AdminsideNavbarConatiner {
+  width: 25rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #12181b;
+  box-shadow: 0 1rem 2rem 4px rgba(7, 24, 25, 0.5);
+}
+
+.AdmintopPart {
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid gray;
+}
+.AdmintopPart h2 {
+  font-size: 2.1rem;
+  text-align: center;
+}
+
+.Alinks {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.Alinks .Alink {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 4rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.1s ease-in-out;
+  border-radius: 3px;
+}
+.Alinks .Alink:hover {
+  background-color: #4684ef;
+}
+.Alinks .Alink:hover a,
+.Alinks .Alink:hover .fa-solid {
+  color: rgb(255, 255, 255);
+}
+
+.Alinks .Alink .fa-solid {
+  font-size: 2rem;
+  margin-left: 3rem;
+  margin-right: 1.8rem;
+  color: rgb(232, 225, 225);
+}
+
+.Alinks .Alink a {
+  width: 100%;
+  height: 100%;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  color: rgb(232, 225, 225);
+  text-decoration: none;
+}
+
+.Alinks .active {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  background-color: #4684ef;
+}

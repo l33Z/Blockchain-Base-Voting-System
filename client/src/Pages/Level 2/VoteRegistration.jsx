@@ -31,7 +31,6 @@ const VoteRegistration = () => {
       });
 
       const data = await response.json();
-      console.log(data);
       setCurrentVoterId(data);
 
       if (response.status === 401) {
@@ -127,7 +126,7 @@ const VoteRegistration = () => {
         });
         return;
       }
-      if (adharCard.length !== 12) {
+      if (adharCard.length !== 14) {
         toast.error("Adhar Card Number must be 12 Numbers", {
           style: {
             fontSize: "15px",
@@ -253,7 +252,7 @@ const VoteRegistration = () => {
               <div className="inputVoteBox">
                 <i className="fa-solid fa-address-card"></i>
                 <input
-                  type="number"
+                  type="text"
                   name="adharCard"
                   placeholder="Enter your Aadhar Card"
                   id="adharCard"
