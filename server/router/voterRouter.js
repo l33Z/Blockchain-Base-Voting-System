@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const Voter = require("../models/voterModel");
+const Candidate = require("../models/candidateModel");
 const bcrypt = require("bcrypt");
 const authentication = require("../middleware/autheniticate");
 router.use(express.json());
 
 //////////////////////////////////// FOR WELCOME PAGE //////////////////////////////////
 router.get("/api/welcomee", authentication, (req, res) => {
-  res.send(req.currentVoterName);
+  res.status(200).send(req.currentVoterName);
 });
 
 //////////////////////////////////// FOR LOGOUT PAGE //////////////////////////////////
@@ -85,7 +86,7 @@ router.post("/api/loginvoter", async (req, res) => {
 
 //////////////////////////////////// FOR VOTE REGISTRATION //////////////////////////////////
 router.get("/api/voteregistration", authentication, (req, res) => {
-  res.send(req.currentVoterId);
+  res.status(200).send(req.currentVoterId);
 });
 
 router.post("/api/voteregistration", async (req, res) => {

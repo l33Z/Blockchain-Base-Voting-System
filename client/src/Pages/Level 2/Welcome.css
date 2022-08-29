@@ -16,8 +16,6 @@
   width: 100%;
   height: 10rem;
   border-bottom: 1px dashed grey;
-  /* background-color: #0178b8; */
-  /* margin-top: 5rem; */
 }
 
 .topWlcomePart h1 {
@@ -73,6 +71,16 @@
   padding: 0.8rem 3rem;
   background-color: #12181b;
   border: 2px solid #09c372;
+  font-size: 1.7rem;
+  border-radius: 4px;
+  box-shadow: 0 1rem 2rem 0.4rem rgba(0, 0, 0, 0.5);
+}
+#connected {
+  margin-right: 7rem;
+  outline: none;
+  border: none;
+  padding: 0.8rem 3rem;
+  background-color: #09c372c4;
   font-size: 1.7rem;
   border-radius: 4px;
   box-shadow: 0 1rem 2rem 0.4rem rgba(0, 0, 0, 0.5);

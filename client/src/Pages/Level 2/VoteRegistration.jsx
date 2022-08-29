@@ -17,6 +17,7 @@ const VoteRegistration = () => {
   });
 
   const navigate = useNavigate();
+  const [Renderd, setRenderd] = useState(false);
   const [currentVoterID, setCurrentVoterId] = useState("");
 
   const getCurrentVoter = async () => {
@@ -31,9 +32,10 @@ const VoteRegistration = () => {
       });
 
       const data = await response.json();
-      setCurrentVoterId(data);
-
-      if (response.status === 401) {
+      if (response.status === 200) {
+        setCurrentVoterId(data);
+        setRenderd(true);
+      } else if (response.status === 401) {
         navigate("/login");
         setTimeout(function () {
           toast.error("Please Login First", {
@@ -50,9 +52,7 @@ const VoteRegistration = () => {
             progress: undefined,
           });
         }, 1000);
-      }
-
-      if (!response.status === 200) {
+      } else {
         throw new Error(response.error);
       }
     } catch (e) {
@@ -60,8 +60,12 @@ const VoteRegistration = () => {
       navigate("/login");
     }
   };
+  var zz = true;
   useEffect(() => {
-    getCurrentVoter();
+    if (zz) {
+      getCurrentVoter();
+      zz = false;
+    }
   }, []);
 
   //////////////////////////////// HANDLE CHANGES FUNCTION //////////////////////////////////
@@ -239,132 +243,136 @@ const VoteRegistration = () => {
 
   return (
     <>
-      <SideNavbar />
-      <div className="voteRegistrationMain">
-        <ToastContainer theme="colored" />
-        <h1 id="headingForRegistration">Fill The Details For Voting</h1>
-        <div className="formMain">
-          <div className="leftSideRegistrationPart">
-            <img src={typing} alt="img" />
+      {Renderd && (
+        <>
+          <SideNavbar />
+          <div className="voteRegistrationMain">
+            <ToastContainer theme="colored" />
+            <h1 id="headingForRegistration">Fill The Details For Voting</h1>
+            <div className="formMain">
+              <div className="leftSideRegistrationPart">
+                <img src={typing} alt="img" />
+              </div>
+              <div className="rightSideRegistrationPart">
+                <form method="POST">
+                  <div className="inputVoteBox">
+                    <i className="fa-solid fa-address-card"></i>
+                    <input
+                      type="text"
+                      name="adharCard"
+                      placeholder="Enter your Aadhar Card"
+                      id="adharCard"
+                      className="VotingRegisterInputField"
+                      onChange={HandleVoterDetailsChanges}
+                      value={voterDetails.adharCard}
+                      required
+                    />
+                  </div>
+
+                  <div className="inputVoteBox">
+                    <i className="fa-solid fa-calendar"></i>
+                    <input
+                      type="number"
+                      name="voterno"
+                      placeholder="Enter your Voter Card No "
+                      id="voterno"
+                      className="VotingRegisterInputField"
+                      onChange={HandleVoterDetailsChanges}
+                      value={voterDetails.voterno}
+                      required
+                    />
+                  </div>
+
+                  <div className="inputVoteBox">
+                    <i className="fa-solid fa-calendar"></i>
+                    <input
+                      type="date"
+                      name="birthdate"
+                      placeholder="Enter your Birth Date : "
+                      id="birthdate"
+                      className="VotingRegisterInputField"
+                      onChange={HandleVoterDetailsChanges}
+                      value={voterDetails.birthdate}
+                      required
+                    />
+                  </div>
+
+                  <div className="inputVoteBox">
+                    <i className="fa-solid fa-universal-access"></i>
+                    <input
+                      type="number"
+                      name="age"
+                      placeholder="Enter your Age"
+                      id="age"
+                      className="VotingRegisterInputField"
+                      min={18}
+                      onChange={HandleVoterDetailsChanges}
+                      value={voterDetails.age}
+                      required
+                    />
+                  </div>
+
+                  <div className="inputVoteBoxGroup">
+                    <div className="inputVoteBox">
+                      <i className="fa-solid fa-city"></i>
+                      <input
+                        type="text"
+                        name="rstate"
+                        placeholder="Enter your State "
+                        id="state"
+                        className="VotingRegisterInputField"
+                        onChange={HandleVoterDetailsChanges}
+                        value={voterDetails.rstate}
+                        required
+                      />
+                    </div>
+
+                    <div className="inputVoteBox">
+                      <i className="fa-solid fa-earth-asia"></i>
+                      <input
+                        type="text"
+                        name="city"
+                        placeholder="Enter your City "
+                        id="city"
+                        className="VotingRegisterInputField"
+                        onChange={HandleVoterDetailsChanges}
+                        value={voterDetails.city}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="inputVoteBox">
+                    <i className="fa-solid fa-at"></i>
+                    <input
+                      type="text"
+                      name="address"
+                      placeholder="Enter your address "
+                      id="address"
+                      className="VotingRegisterInputField"
+                      onChange={HandleVoterDetailsChanges}
+                      value={voterDetails.address}
+                      required
+                    />
+                  </div>
+
+                  <div className="btnGroupVoteRegister">
+                    <input
+                      type="submit"
+                      className="regiterVotebumtBtn"
+                      onClick={RegisersVoterFunc}
+                    />
+                    <input
+                      type="reset"
+                      className="resetVoteBtn"
+                      onClick={resetVoterBtnFunc}
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-          <div className="rightSideRegistrationPart">
-            <form method="POST">
-              <div className="inputVoteBox">
-                <i className="fa-solid fa-address-card"></i>
-                <input
-                  type="text"
-                  name="adharCard"
-                  placeholder="Enter your Aadhar Card"
-                  id="adharCard"
-                  className="VotingRegisterInputField"
-                  onChange={HandleVoterDetailsChanges}
-                  value={voterDetails.adharCard}
-                  required
-                />
-              </div>
-
-              <div className="inputVoteBox">
-                <i className="fa-solid fa-calendar"></i>
-                <input
-                  type="number"
-                  name="voterno"
-                  placeholder="Enter your Voter Card No "
-                  id="voterno"
-                  className="VotingRegisterInputField"
-                  onChange={HandleVoterDetailsChanges}
-                  value={voterDetails.voterno}
-                  required
-                />
-              </div>
-
-              <div className="inputVoteBox">
-                <i className="fa-solid fa-calendar"></i>
-                <input
-                  type="date"
-                  name="birthdate"
-                  placeholder="Enter your Birth Date : "
-                  id="birthdate"
-                  className="VotingRegisterInputField"
-                  onChange={HandleVoterDetailsChanges}
-                  value={voterDetails.birthdate}
-                  required
-                />
-              </div>
-
-              <div className="inputVoteBox">
-                <i className="fa-solid fa-universal-access"></i>
-                <input
-                  type="number"
-                  name="age"
-                  placeholder="Enter your Age"
-                  id="age"
-                  className="VotingRegisterInputField"
-                  min={18}
-                  onChange={HandleVoterDetailsChanges}
-                  value={voterDetails.age}
-                  required
-                />
-              </div>
-
-              <div className="inputVoteBoxGroup">
-                <div className="inputVoteBox">
-                  <i className="fa-solid fa-city"></i>
-                  <input
-                    type="text"
-                    name="rstate"
-                    placeholder="Enter your State "
-                    id="state"
-                    className="VotingRegisterInputField"
-                    onChange={HandleVoterDetailsChanges}
-                    value={voterDetails.rstate}
-                    required
-                  />
-                </div>
-
-                <div className="inputVoteBox">
-                  <i className="fa-solid fa-earth-asia"></i>
-                  <input
-                    type="text"
-                    name="city"
-                    placeholder="Enter your City "
-                    id="city"
-                    className="VotingRegisterInputField"
-                    onChange={HandleVoterDetailsChanges}
-                    value={voterDetails.city}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="inputVoteBox">
-                <i className="fa-solid fa-at"></i>
-                <input
-                  type="text"
-                  name="address"
-                  placeholder="Enter your address "
-                  id="address"
-                  className="VotingRegisterInputField"
-                  onChange={HandleVoterDetailsChanges}
-                  value={voterDetails.address}
-                  required
-                />
-              </div>
-
-              <div className="btnGroupVoteRegister">
-                <input
-                  type="submit"
-                  className="regiterVotebumtBtn"
-                  onClick={RegisersVoterFunc}
-                />
-                <input
-                  type="reset"
-                  className="resetVoteBtn"
-                  onClick={resetVoterBtnFunc}
-                />
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };

@@ -1,6 +1,7 @@
 const express = require("express");
 const Candidate = require("../models/candidateModel");
 const router = express.Router();
+const authentication = require("../middleware/autheniticate");
 const multer = require("multer");
 
 //////////////////////////////// FOR STORING IMAGES //////////////////////////////////////
@@ -38,7 +39,7 @@ router.post(
 );
 
 //////////////////////////////////// FOR CANDIDATES LIST //////////////////////////////////
-router.get("/api/allcandidates", async (req, res) => {
+router.get("/api/allcandidates", authentication, async (req, res) => {
   const allCamdidates = await Candidate.find({});
   if (allCamdidates.length == 0) {
     res.status(400).json("No Candidate found");
@@ -48,7 +49,7 @@ router.get("/api/allcandidates", async (req, res) => {
 });
 
 //////////////////////////////////// FOR RESULT CANDIDATES LIST //////////////////////////////////
-router.get("/api/resultcandidates", async (req, res) => {
+router.get("/api/resultcandidates", authentication, async (req, res) => {
   const allCamdidates = await Candidate.find({}).sort({ TotalVotes: -1 });
   if (allCamdidates.length == 0) {
     res.status(400).json("No Candidate found");

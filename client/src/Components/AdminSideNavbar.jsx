@@ -17,18 +17,16 @@ const SideNavbar = () => {
             <div className="Alink">
               <NavLink to="/adminwelcome">
                 <i className="fa-solid fa-face-smile"></i>
-                Welcome
+                Welcome Admin
               </NavLink>
             </div>
 
-            {adminOnly && (
-              <div className="Alink">
-                <NavLink to="/addcandidates">
-                  <i className="fa-solid fa-person-circle-plus"></i>
-                  Add Candidate
-                </NavLink>
-              </div>
-            )}
+            <div className="Alink">
+              <NavLink to="/addcandidates">
+                <i className="fa-solid fa-person-circle-plus"></i>
+                Add Candidate
+              </NavLink>
+            </div>
 
             <div className="Alink">
               <NavLink to="/adminallcandidates">
@@ -52,7 +50,7 @@ const SideNavbar = () => {
             </div>
 
             <div className="Alink">
-              <NavLink to="/logout">
+              <NavLink to="/alogout">
                 <i className="fa-solid fa-right-from-bracket"></i>
                 Log Out
               </NavLink>

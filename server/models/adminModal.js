@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+var jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const AdminSchema = new mongoose.Schema(
   {
@@ -19,10 +21,24 @@ const AdminSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    Tokens: [
+      {
+        token: {
+          type: String,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
 
+////////////////// Generating Token //////////////////
+AdminSchema.methods.generateToken = async function () {
+  let token = await jwt.sign({ id: this.id }, process.env.Token_Private_Key);
+  this.Tokens = this.Tokens.concat({ token });
+  await this.save();
+  return token;
+};
 
 const Admin = new mongoose.model("Admin", AdminSchema);
 

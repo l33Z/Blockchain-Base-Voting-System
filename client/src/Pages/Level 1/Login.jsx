@@ -88,7 +88,7 @@ const Login = () => {
         else if (response.status === 200) {
           setTimeout(function () {
             navigate("/welcome");
-          }, 3000);
+          }, 1500);
 
           toast.success(data, {
             style: {
@@ -96,7 +96,7 @@ const Login = () => {
               letterSpacing: "1px",
             },
             position: "bottom-right",
-            autoClose: 2000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

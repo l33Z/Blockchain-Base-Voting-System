@@ -1,9 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./AddCandidates.css";
 import AdminSideNavbar from "../../Components/AdminSideNavbar";
 import { ToastContainer, toast, Flip } from "react-toastify";
+import { ethers } from "ethers";
+import { useNavigate } from "react-router-dom";
 
 const AddCandidates = () => {
+  const navigate = useNavigate();
+
+  //////////////////////////////// CHECK THE OWNER //////////////////////////////////
+  const checkOwner = async () => {
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const accounts = await provider.send("eth_requestAccounts", []);
+
+      if (
+        accounts[0].toString() != "0x5193b5dffbaa7b75bcf00b0090b89a79c01cd327"
+      ) {
+        navigate("/adminwelcome");
+      }
+    } else {
+      navigate("/adminwelcome");
+    }
+  };
+  useEffect(() => {
+    checkOwner();
+  }, []);
+
   const [candidateDetails, setCandidateDetails] = useState({
     candidatename: "",
     partyname: "",

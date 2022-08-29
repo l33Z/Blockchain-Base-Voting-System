@@ -62,7 +62,27 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
-      "/api/addadmin": {
+      "/api/admin/addadmin": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/api/admin/welcomee": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/api/alogout": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/api/admin/allcandidates": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/api/admin/resultcandidates": {
         target: "http://localhost:3000",
         changeOrigin: true,
         secure: false,

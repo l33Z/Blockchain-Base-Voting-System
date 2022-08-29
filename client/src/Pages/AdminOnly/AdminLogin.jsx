@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../Components/Navbar";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import adminBg from "../../assets/admin.jpg";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
@@ -33,7 +33,7 @@ const AdminLogin = () => {
             letterSpacing: "1px",
           },
           position: "bottom-right",
-          autoClose: 3000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
@@ -49,7 +49,7 @@ const AdminLogin = () => {
             letterSpacing: "1px",
           },
           position: "bottom-right",
-          autoClose: 3000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
@@ -61,7 +61,7 @@ const AdminLogin = () => {
       else if (response.status === 200) {
         setTimeout(function () {
           navigate("/adminwelcome");
-        }, 3000);
+        }, 1500);
 
         toast.success(data, {
           style: {
@@ -69,7 +69,7 @@ const AdminLogin = () => {
             letterSpacing: "1px",
           },
           position: "bottom-right",
-          autoClose: 2000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

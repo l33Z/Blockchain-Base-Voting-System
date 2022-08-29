@@ -1,8 +1,50 @@
 const express = require("express");
 const Admin = require("../models/adminModal");
+const Candidate = require("../models/candidateModel");
+
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const Adminauthentication = require("../middleware/authenticationForAdmin");
 router.use(express.json());
+
+//////////////////////////////////// FOR WELCOME PAGE //////////////////////////////////
+router.get("/api/admin/welcomee", Adminauthentication, (req, res) => {
+  res.status(200).json(req.currentAdminName);
+});
+
+//////////////////////////////////// FOR LOGOUT PAGE //////////////////////////////////
+router.get("/api/alogout", (req, res) => {
+  res.clearCookie("jwt_admin_token");
+  res.status(200).send("Logout Successfully");
+});
+
+//////////////////////////////////// FOR ALL CANDIDATES LIST PAGE //////////////////////////////////
+router.get(
+  "/api/admin/allcandidates",
+  Adminauthentication,
+  async (req, res) => {
+    const allCamdidates = await Candidate.find({});
+    if (allCamdidates.length == 0) {
+      res.status(400).json("No Candidate found");
+    } else {
+      res.status(200).json(allCamdidates);
+    }
+  }
+);
+
+//////////////////////////////////// FOR ADMIN RESULT PAGE //////////////////////////////////
+router.get(
+  "/api/admin/resultcandidates",
+  Adminauthentication,
+  async (req, res) => {
+    const allCamdidates = await Candidate.find({}).sort({ TotalVotes: -1 });
+    if (allCamdidates.length == 0) {
+      res.status(400).json("No Candidate found");
+    } else {
+      res.status(200).json(allCamdidates);
+    }
+  }
+);
 
 //////////////////////////////////// FOR LOGIN ADMIN //////////////////////////////////
 router.post("/api/adminlogin", async (req, res) => {
@@ -16,6 +58,14 @@ router.post("/api/adminlogin", async (req, res) => {
       findAdmin.AdminPassword
     );
     if (validPassword) {
+      // Calling Generating Function From VoterSchema
+      const token = await findAdmin.generateToken();
+
+      res.cookie("jwt_admin_token", token, {
+        expires: new Date(Date.now() + 86400000),
+        httpOnly: true,
+      });
+
       res.status(200).json("Login successful");
     } else {
       res.status(401).json("Login failed Invalid Cradentials");
@@ -26,7 +76,10 @@ router.post("/api/adminlogin", async (req, res) => {
 });
 
 //////////////////////////////////// FOR ADDING NEW ADMIN //////////////////////////////////
-router.post("/api/addadmin", async (req, res) => {
+router.get("/api/admin/addadmin", Adminauthentication, async (req, res) => {
+  res.status(200).json(req.currentAdminName);
+});
+router.post("/api/admin/addadmin", async (req, res) => {
   const { adminname, username, password, cpassword } = req.body;
   console.log("From Frontend :");
   console.log(req.body);

@@ -21,15 +21,6 @@ const SideNavbar = () => {
               </NavLink>
             </div>
 
-            {/* {adminOnly && (
-              <div className="link">
-                <NavLink to="/addcandidates">
-                  <i className="fa-solid fa-person-circle-plus"></i>
-                  Add Candidate
-                </NavLink>
-              </div>
-            )} */}
-
             <div className="link">
               <NavLink to="/information">
                 <i className="fa-solid fa-circle-info"></i>

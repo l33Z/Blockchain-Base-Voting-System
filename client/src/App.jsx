@@ -16,6 +16,7 @@ import AdminWelcome from "./Pages/AdminOnly/AdminWelcome";
 import AllCandidates from "./Pages/AdminOnly/AllCandidates";
 import AdminResult from "./Pages/AdminOnly/AdminResult";
 import AddAdmin from "./Pages/AdminOnly/AddAdmin";
+import AdminLogout from "./Pages/AdminOnly/AdminLogout";
 
 const App = () => {
   return (
@@ -36,7 +37,7 @@ const App = () => {
         <Route path="/adminallcandidates" element={<AllCandidates />} />
         <Route path="/adminresult" element={<AdminResult />} />
         <Route path="/addnewadmin" element={<AddAdmin />} />
-        addnewadmin
+        <Route path="/alogout" element={<AdminLogout />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
