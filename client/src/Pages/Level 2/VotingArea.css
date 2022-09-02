@@ -1,4 +1,6 @@
-.votingAreaConatiner {
+.votingAreaConatiner,
+.ZeroCountCandi,
+.ElectionPhaseMain {
   position: absolute;
   left: 25rem;
   top: 0;
@@ -8,6 +10,19 @@
   align-items: center;
   flex-direction: column;
   background: #141d22;
+}
+
+.ZeroCountCandi,
+.ElectionPhaseMain {
+  justify-content: center;
+}
+.ZeroCountCandi h1 {
+  font-size: 5.3rem !important;
+  text-align: center;
+}
+.ElectionPhaseMain h1 {
+  font-size: 5.3rem;
+  text-align: center;
 }
 
 .modal_zz {

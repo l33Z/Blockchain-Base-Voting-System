@@ -3,13 +3,33 @@ import AdminSideNavbar from "../../Components/AdminSideNavbar";
 import "./AllCandidates.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { ethers } from "ethers";
+import electionAbi from "../../Contract/election.json";
+const contractAddress = "0x7148738AA7503e41Db6Ab6143eAccd68641E3EcF";
 
 const VotingArea = () => {
   const navigate = useNavigate();
   const [Renderd, setRenderd] = useState(false);
   const [Candidates, setCandidates] = useState([]);
+  const [noCandidates, setNoCandidates] = useState(0);
 
-  //////////////////////////////// RETRIVING DATA FROM API ////////////////////////////////
+  // ------------------------------GET CANDIDATE FROM BLOCKCHAIN -----------------------------
+  const getCandidatesDataFromBlockchain = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const ElectionContarct = new ethers.Contract(
+      contractAddress,
+      electionAbi,
+      provider
+    );
+
+    const data = await ElectionContarct.allCandidates();
+    const candidateCount = await ElectionContarct.candidatesCount();
+
+    setNoCandidates(parseInt(candidateCount));
+    setCandidates(data);
+  };
+
+  //////////////////////////////// RETRIVING DATA FROM DB ////////////////////////////////
   const getCandidatesData = async () => {
     const response = await fetch("/api/admin/allcandidates", {
       method: "GET",
@@ -22,7 +42,9 @@ const VotingArea = () => {
     const data = await response.json();
 
     if (response.status === 200) {
-      setCandidates(data);
+      // setCandidates(data);
+      setRenderd(true);
+    } else if (response.status === 404) {
       setRenderd(true);
     } else if (response.status === 401) {
       navigate("/admin");
@@ -50,6 +72,7 @@ const VotingArea = () => {
   useEffect(() => {
     if (zz) {
       getCandidatesData();
+      getCandidatesDataFromBlockchain();
       zz = false;
     }
   }, []);
@@ -60,28 +83,44 @@ const VotingArea = () => {
         <>
           <ToastContainer theme="colored" />
           <AdminSideNavbar />
-          <div className="AdminvotingAreaConatiner">
-            <div className="AdminvotingAreaMain">
-              <h1>Candidates</h1>
-              <div className="Admincandidates">
-                {Candidates.map((can) => {
-                  return (
-                    <div className="AdmincandidateBox" key={can._id}>
-                      <div className="acandidateImg">
-                        <img src={`/uploads/${can.CandidateImage}`} alt="img" />
-                      </div>
-                      <div className="acandidateName">
-                        <h2>Name : {can.CandidateName}</h2>
-                        <h2>Party : {can.CandidatePartyName}</h2>
-                        <h2>Party : {can.CandidateAge}</h2>
-                        <h2>Votes : {can.TotalVotes}</h2>
-                      </div>
-                    </div>
-                  );
-                })}
+          {noCandidates != 0 ? (
+            <>
+              <div className="AdminvotingAreaConatiner">
+                <div className="AdminvotingAreaMain">
+                  <h1>Candidates</h1>
+                  <div className="Admincandidates">
+                    {Candidates.map((can) => {
+                      return (
+                        <div
+                          className="AdmincandidateBox"
+                          key={can.candidate_id}
+                        >
+                          <div className="acandidateImg">
+                            <img
+                              src={`/uploads/${can.candidate_imageName}`}
+                              alt="img"
+                            />
+                          </div>
+                          <div className="acandidateName">
+                            <h2>Name : {can.candidate_name}</h2>
+                            <h2>Party : {can.candidate_partyName}</h2>
+                            <h2>Party : {parseInt(can.candidate_age)}</h2>
+                            {/* <h2>Id : {can.candidate_id} </h2> */}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          ) : (
+            <>
+              <div className="noCandidatesMian">
+                <h1>No Candidates !!</h1>
+              </div>
+            </>
+          )}
         </>
       )}
     </>

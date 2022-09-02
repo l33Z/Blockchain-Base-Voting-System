@@ -22,16 +22,23 @@ router.post(
   upload.single("CandidateImage"),
   async (req, res) => {
     try {
-      const { CandidateName, CandidatePartyName, CandidateAge } = req.body;
+      const { CandidateName, CandidatePartyName, CandidateAge, CandidateId } =
+        req.body;
 
-      const newCandidate = await Candidate({
-        CandidateName,
-        CandidatePartyName,
-        CandidateAge,
-        CandidateImage: req.file.filename,
-      });
-      const result = await newCandidate.save();
-      res.status(201).json("Successfully Added Candidate");
+      const availableId = await Candidate.find({ CandidateId });
+      if (availableId == 0) {
+        const newCandidate = await Candidate({
+          CandidateName,
+          CandidatePartyName,
+          CandidateAge,
+          CandidateId,
+          CandidateImage: req.file.filename,
+        });
+        const result = await newCandidate.save();
+        res.status(201).json(result._id);
+      } else {
+        res.status(409).json(CandidateId + " already available");
+      }
     } catch (err) {
       res.status(500).json("Somthing Went Wrong");
     }
@@ -66,13 +73,13 @@ router.post("/api/countvotes", async (req, res) => {
     const CurrentCandidate = await Candidate.findOne({
       CandidateName: currentcandidatename,
     });
+    console.log(CurrentCandidate);
     CurrentCandidate.TotalVotes++;
     await CurrentCandidate.save();
-    res
-      .status(201)
-      .json(
-        "Your Vote Count Successfully for " + CurrentCandidate.CandidateName
-      );
+    res.status(201).json({
+      msg: "Your Vote Count Successfully for " + CurrentCandidate.CandidateName,
+      ans: CurrentCandidate.CandidateId,
+    });
   } catch (e) {
     res.status(500).json(e);
   }

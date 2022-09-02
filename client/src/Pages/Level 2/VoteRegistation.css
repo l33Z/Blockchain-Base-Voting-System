@@ -1,3 +1,18 @@
+.MainStatusVoter {
+  position: absolute;
+  left: 25rem;
+  top: 0;
+  width: calc(100vw - 25rem);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #141d22;
+}
+.MainStatusVoter h1 {
+  font-size: 5.5rem;
+}
 .voteRegistrationMain {
   position: absolute;
   left: 25rem;

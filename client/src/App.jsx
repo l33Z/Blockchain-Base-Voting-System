@@ -17,6 +17,8 @@ import AllCandidates from "./Pages/AdminOnly/AllCandidates";
 import AdminResult from "./Pages/AdminOnly/AdminResult";
 import AddAdmin from "./Pages/AdminOnly/AddAdmin";
 import AdminLogout from "./Pages/AdminOnly/AdminLogout";
+import AdminChnagePhase from "./Pages/AdminOnly/AdminChnagePhase";
+import AdminAllVoters from "./Pages/AdminOnly/AdminAllVoters";
 
 const App = () => {
   return (
@@ -38,6 +40,8 @@ const App = () => {
         <Route path="/adminresult" element={<AdminResult />} />
         <Route path="/addnewadmin" element={<AddAdmin />} />
         <Route path="/alogout" element={<AdminLogout />} />
+        <Route path="/phase" element={<AdminChnagePhase />} />
+        <Route path="/allVoters" element={<AdminAllVoters />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

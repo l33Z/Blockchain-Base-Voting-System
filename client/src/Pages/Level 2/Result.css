@@ -1,4 +1,6 @@
-.resultConatiner {
+.resultConatiner,
+.StatusOfResultVote,
+.ResultWait {
   position: absolute;
   left: 25rem;
   top: 0;
@@ -9,7 +11,16 @@
   flex-direction: column;
   background: #141d22;
 }
+.StatusOfResultVote,
+.ResultWait {
+  justify-content: center;
+}
 
+.StatusOfResultVote h1,
+.ResultWait h1 {
+  text-align: center;
+  font-size: 5.3rem;
+}
 .renderCondition {
   display: flex;
   flex-direction: column;

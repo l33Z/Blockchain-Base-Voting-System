@@ -36,6 +36,13 @@ const SideNavbar = () => {
             </div>
 
             <div className="Alink">
+              <NavLink to="/allVoters">
+                <i className="fa-solid fa-person-booth"></i>
+                All Voters
+              </NavLink>
+            </div>
+
+            <div className="Alink">
               <NavLink to="/adminresult">
                 <i className="fa-solid fa-square-poll-vertical"></i>
                 Result

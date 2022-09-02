@@ -81,7 +81,7 @@
   outline: none;
   border: none;
   padding: 0.8rem 3rem;
-  background-color: #9166cc95;
+  background-color: #09c372bb;
   font-size: 1.7rem;
   border-radius: 4px;
   box-shadow: 0 1rem 2rem 0.4rem rgba(0, 0, 0, 0.5);
@@ -112,9 +112,9 @@
   padding-top: 2.5rem;
   border-radius: 5px;
   background-color: #12181b;
-  border: 2px solid #9166cc;
+  border: 2px solid #09c372;
   margin-top: 3rem;
-  box-shadow: 0 1rem 2rem #9166cc30, 0 -1rem 2rem #9166cc30;
+  box-shadow: 0 1rem 2rem #09c37213, 0 -1rem 2rem #09c37213;
 }
 
 .AaccountAddress h3 {
@@ -126,7 +126,7 @@
 .adminPower {
   padding-left: 5rem;
   margin-top: 3rem;
-  height: 18rem;
+  min-height: 18rem;
   border-bottom: 1px dashed grey;
 }
 
@@ -139,14 +139,17 @@
 }
 .addCandidate h3 {
   font-size: 3rem;
-  color: #9065CB;
+  color: #09c372;
   margin: 2rem;
 }
-.fa-circle-plus {
+.fa-circle-plus,
+.fa-file-pen {
   padding-right: 1rem;
   font-size: 2.1rem;
 }
+
 #addCanBtn {
+  width: max-content;
   text-decoration: none;
   color: white;
   background-color: #12181b;
@@ -158,6 +161,24 @@
 }
 
 #addCanBtn:hover {
+  background-color: #09c372;
+  border: 1px solid #09c372;
+}
+
+#phaseBtn {
+  margin-left: 7rem;
+  width: max-content;
+  text-decoration: none;
+  color: white;
+  background-color: #12181b;
+  border: 1px solid #09c372;
+  padding: 1.3rem 2.2rem;
+  border-radius: 0.5rem;
+  font-size: 2rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
+}
+
+#phaseBtn:hover {
   background-color: #09c372;
   border: 1px solid #09c372;
 }

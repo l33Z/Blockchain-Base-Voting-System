@@ -1,3 +1,18 @@
+.MainStatusCandidate {
+  position: absolute;
+  left: 25rem;
+  top: 0;
+  min-width: calc(100vw - 27rem);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #141d22;
+}
+.MainStatusCandidate h1 {
+  font-size: 5.5rem;
+}
+
 .addCandidatesConatiner {
   position: absolute;
   left: 25rem;

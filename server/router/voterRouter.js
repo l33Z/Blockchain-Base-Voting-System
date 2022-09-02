@@ -4,6 +4,8 @@ const Voter = require("../models/voterModel");
 const Candidate = require("../models/candidateModel");
 const bcrypt = require("bcrypt");
 const authentication = require("../middleware/autheniticate");
+const adminAuthentication = require("../middleware/authenticationForAdmin");
+
 router.use(express.json());
 
 //////////////////////////////////// FOR WELCOME PAGE //////////////////////////////////
@@ -15,6 +17,16 @@ router.get("/api/welcomee", authentication, (req, res) => {
 router.get("/api/logout", (req, res) => {
   res.clearCookie("jwt_token");
   res.status(200).send("Logout Successfully");
+});
+
+//////////////////////////////////// FOR ALL VOTERLIST //////////////////////////////////
+router.get("/api/admin/allvoters", adminAuthentication, async (req, res) => {
+  const allVoters = await Voter.find({});
+  if (allVoters.length == 0) {
+    res.status(400).json("No Candidate found");
+  } else {
+    res.status(200).json(allVoters);
+  }
 });
 
 //////////////////////////////////// FOR REGISTER PAGE //////////////////////////////////
@@ -95,15 +107,22 @@ router.post("/api/voteregistration", async (req, res) => {
       req.body;
 
     const findVoter = await Voter.findOne({ _id: cid });
-    findVoter.adharCard = adharCard;
-    findVoter.voterId = voterno;
-    findVoter.age = age;
-    findVoter.birthDate = birthdate;
-    findVoter.city = city;
-    findVoter.rstate = rstate;
-    findVoter.address = address;
-    findVoter.save();
-    res.status(201).json("Registerd Successfully");
+
+    const voterIdExists = await Voter.findOne({ voterId: voterno });
+    // console.log(voterIdExists);
+    if (voterIdExists === null) {
+      findVoter.adharCard = adharCard;
+      findVoter.voterId = voterno;
+      findVoter.age = age;
+      findVoter.birthDate = birthdate;
+      findVoter.city = city;
+      findVoter.rstate = rstate;
+      findVoter.address = address;
+      findVoter.save();
+      res.status(201).json(voterno);
+    } else {
+      res.status(409).json("Voter Id " + voterno + " already available !!");
+    }
   } catch (e) {
     res.status(400).json("Somthing Went Wrong !!");
   }
@@ -117,7 +136,7 @@ router.post("/api/voteregistration", async (req, res) => {
 router.post("/api/currentvoter", authentication, async (req, res) => {
   try {
     const currentVoter = await Voter.findOne({ _id: req.currentVoterId });
-    console.log(currentVoter);
+    // console.log(currentVoter);
     console.log(currentVoter.voterId);
     if (currentVoter.voterId === undefined) {
       res.status(400).json("Please Register First For Vote");
@@ -127,7 +146,7 @@ router.post("/api/currentvoter", authentication, async (req, res) => {
       } else {
         currentVoter.isVoted = true;
         currentVoter.save();
-        res.status(201).json("Your Vote Is Successfully Counted");
+        res.status(201).json(currentVoter.voterId);
       }
     }
   } catch (e) {

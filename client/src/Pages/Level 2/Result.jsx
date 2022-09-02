@@ -4,12 +4,52 @@ import "./Result.css";
 import party from "../../assets/party.png";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Flip } from "react-toastify";
+import { ethers } from "ethers";
+import electionAbi from "../../Contract/election.json";
+const contractAddress = "0x7148738AA7503e41Db6Ab6143eAccd68641E3EcF";
 
 const Result = () => {
   const navigate = useNavigate();
   const [Renderd, setRenderd] = useState(false);
-  const [Candidates, setCandidates] = useState([]);
   const [winnerHeading, setwinnerHeading] = useState("Winner 🎉 is");
+  const [PhaseOfElection, setPhaseOfElection] = useState(198);
+  const [resultCandidates, setResultCandidates] = useState([]);
+  const [winnerDetails, setwinnerDetails] = useState([]);
+  // ------------------------------GET CANDIDATE FROM BLOCKCHAIN -----------------------------
+  const getCandidatesDataFromBlockchain = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const ElectionContarct = new ethers.Contract(
+      contractAddress,
+      electionAbi,
+      provider
+    );
+    const signer = provider.getSigner();
+
+    const phaseStatus = await ElectionContarct.ElectionState();
+    setPhaseOfElection(phaseStatus);
+
+    if (phaseStatus === 2) {
+      const reultList = await ElectionContarct.connect(
+        signer
+      ).getUpdatedCandidateList();
+
+      const winnerId = await ElectionContarct.getWinner();
+      const winnerDetailss = await ElectionContarct.candidates(winnerId);
+
+      const ans = [...reultList];
+      ans.sort((a, b) => {
+        return parseInt(a.candidate_totalVotes) <
+          parseInt(b.candidate_totalVotes)
+          ? 1
+          : -1;
+      });
+
+      setwinnerDetails(winnerDetailss);
+      setResultCandidates(ans);
+      console.log(ans);
+    }
+  };
+
   const getCandidatesData = async () => {
     const response = await fetch("/api/resultcandidates", {
       method: "GET",
@@ -21,8 +61,9 @@ const Result = () => {
 
     const data = await response.json();
     if (response.status === 200) {
-      setCandidates(data);
+      // setCandidates(data);
       setRenderd(true);
+      getCandidatesDataFromBlockchain();
       if (data[0].TotalVotes === data[1].TotalVotes) {
         setwinnerHeading("Election Is Draw");
       }
@@ -44,7 +85,8 @@ const Result = () => {
         });
       }, 1000);
     } else {
-      throw new Error(response.error);
+      setRenderd(true);
+      // throw new Error(response.error);
     }
   };
   var zz = true;
@@ -62,60 +104,91 @@ const Result = () => {
         <>
           <SideNavbar />
           <ToastContainer theme="colored" />
-          <div className="resultConatiner">
-            <div className="resultMain">
-              {Candidates[0] && (
-                <div className="renderCondition">
-                  <h1>Result Area</h1>
-                  <div className="winnerInfo">
-                    <div className="winnerImg">
-                      <img
-                        src={`/uploads/${Candidates[0].CandidateImage}`}
-                        alt="winner"
-                      />
-                    </div>
-                    <div className="winnerName">
-                      <h3 id="winnerHead">
-                        <span id="PopperDiv">
-                          <img src={party} alt="popper" id="partyPopperImg" />
-                        </span>
-                        {winnerHeading}
-                      </h3>
+          {PhaseOfElection === 2 ? (
+            <>
+              {resultCandidates.length !== 0 ? (
+                <>
+                  <div className="resultConatiner">
+                    <div className="resultMain">
+                      {resultCandidates[0] && (
+                        <div className="renderCondition">
+                          <h1>Result Area</h1>
+                          <div className="winnerInfo">
+                            <div className="winnerImg">
+                              <img
+                                src={`/uploads/${winnerDetails.candidate_imageName}`}
+                                alt="winner"
+                              />
+                            </div>
+                            <div className="winnerName">
+                              <h3 id="winnerHead">
+                                <span id="PopperDiv">
+                                  <img
+                                    src={party}
+                                    alt="popper"
+                                    id="partyPopperImg"
+                                  />
+                                </span>
+                                {winnerHeading}
+                              </h3>
 
-                      <h2> Name : {Candidates[0].CandidateName}</h2>
-                      <h2> Party : {Candidates[0].CandidatePartyName}</h2>
-                      <h2> Total Votes : {Candidates[0].TotalVotes} </h2>
+                              <h2> Name : {winnerDetails.candidate_name}</h2>
+                              <h2>
+                                {" "}
+                                Party : {winnerDetails.candidate_partyName}
+                              </h2>
+                              <h2>
+                                {" "}
+                                Total Votes :{" "}
+                                {parseInt(winnerDetails.candidate_totalVotes)}
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      <div className="runnerUpTableConatiner">
+                        <table className="runnerUpTable">
+                          <thead className="table-heading">
+                            <tr>
+                              <th>Position</th>
+                              <th>Name</th>
+                              <th>Party</th>
+                              <th>Total Votes</th>
+                            </tr>
+                          </thead>
+
+                          <tbody className="runnerUpTableBody">
+                            {resultCandidates.map((can) => {
+                              return (
+                                <tr key={can.candidate_id}>
+                                  <td>{CandidatePostionId++}</td>
+                                  <td>{can.candidate_name}</td>
+                                  <td>{can.candidate_partyName}</td>
+                                  <td>{parseInt(can.candidate_totalVotes)}</td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
+                  </div>{" "}
+                </>
+              ) : (
+                <>
+                  <div className="ResultWait">
+                    <h1>Wait For Result ...</h1>
                   </div>
-                </div>
+                </>
               )}
-              <div className="runnerUpTableConatiner">
-                <table className="runnerUpTable">
-                  <thead className="table-heading">
-                    <tr>
-                      <th>Position</th>
-                      <th>Name</th>
-                      <th>Party</th>
-                      <th>Total Votes</th>
-                    </tr>
-                  </thead>
-
-                  <tbody className="runnerUpTableBody">
-                    {Candidates.map((can) => {
-                      return (
-                        <tr key={can._id}>
-                          <td>{CandidatePostionId++}</td>
-                          <td>{can.CandidateName}</td>
-                          <td>{can.CandidatePartyName}</td>
-                          <td>{can.TotalVotes}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+            </>
+          ) : (
+            <>
+              <div className="StatusOfResultVote">
+                <h1>Currently Election Result Is Not Declared !!</h1>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </>
       )}
     </>

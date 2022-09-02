@@ -1,0 +1,459 @@
+[
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "ElectionState",
+    "outputs": [
+      {
+        "internalType": "enum Election.PHASE",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "admin",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "candidate_ids_list",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "candidates",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "candidate_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "candidate_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "candidate_partyName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "candidate_imageName",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "candidate_age",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "candidate_totalVotes",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "is_added",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "candidatesCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "voter_ids_list",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "voters",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "voter_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "votedCandidate_id",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "is_registerd",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "hasVoted",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "votersCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum Election.PHASE",
+        "name": "x",
+        "type": "uint8"
+      }
+    ],
+    "name": "changeState",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_party",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_image",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_age",
+        "type": "uint256"
+      }
+    ],
+    "name": "addCandidate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_voter_id",
+        "type": "string"
+      }
+    ],
+    "name": "voterRegisteration",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_id",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_votedCandidate_id",
+        "type": "string"
+      }
+    ],
+    "name": "vote",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getWinner",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "addCandidateToResultList",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getUpdatedCandidateList",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "candidate_id",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "candidate_name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "candidate_partyName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "candidate_imageName",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "candidate_age",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "candidate_totalVotes",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "is_added",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Election.Candidate[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "allCandidates",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "candidate_id",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "candidate_name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "candidate_partyName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "candidate_imageName",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "candidate_age",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "candidate_totalVotes",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "is_added",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Election.Candidate[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "getCandidateIdList",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "getVoterIdList",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "allVoters",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "voter_id",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "votedCandidate_id",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "is_registerd",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "hasVoted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Election.Voter[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "resetAll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

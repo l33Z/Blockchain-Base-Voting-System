@@ -25,7 +25,7 @@ router.get(
   async (req, res) => {
     const allCamdidates = await Candidate.find({});
     if (allCamdidates.length == 0) {
-      res.status(400).json("No Candidate found");
+      res.status(404).json("No Candidate found");
     } else {
       res.status(200).json(allCamdidates);
     }

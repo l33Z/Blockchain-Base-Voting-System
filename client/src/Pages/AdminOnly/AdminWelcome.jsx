@@ -27,6 +27,13 @@ const AdminWelcome = () => {
       var balance = await provider.getBalance(accounts[0]);
       balance = ethers.utils.formatEther(balance);
       setCurrentAccountBalance(balance);
+      if (
+        accounts[0].toString() == "0x4162daaa49cb714d2a059331e3e59e30e7f6f5ce"
+      ) {
+        setOnlyOwner(true);
+      } else {
+        setOnlyOwner(false);
+      }
 
       if (accounts.length > 0) {
         setBtnStateMsg("Connected To Metamask");
@@ -71,7 +78,7 @@ const AdminWelcome = () => {
     balance = ethers.utils.formatEther(balance);
     setCurrentAccountBalance(balance);
     if (
-      accounts[0].toString() == "0x5193b5dffbaa7b75bcf00b0090b89a79c01cd327"
+      accounts[0].toString() == "0x4162daaa49cb714d2a059331e3e59e30e7f6f5ce"
     ) {
       setOnlyOwner(true);
     } else {
@@ -185,9 +192,15 @@ const AdminWelcome = () => {
               <h2> - Admin Access</h2>
               <div className="addCandidate">
                 {OnlyOwner === true ? (
-                  <NavLink to="/addcandidates" id="addCanBtn">
-                    <i className="fa-solid fa-circle-plus"></i>Add New Candidate
-                  </NavLink>
+                  <>
+                    <NavLink to="/addcandidates" id="addCanBtn">
+                      <i className="fa-solid fa-circle-plus"></i>Add New
+                      Candidate
+                    </NavLink>
+                    <NavLink to="/phase" id="phaseBtn">
+                      <i className="fa-solid fa-file-pen"></i>Change Phase
+                    </NavLink>
+                  </>
                 ) : (
                   <h3>You Dont Have Permision To Add New Candidate !!</h3>
                 )}
