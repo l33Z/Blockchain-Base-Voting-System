@@ -1,16 +1,61 @@
 .informationMain {
+  overflow-x: hidden;
+
   position: absolute;
   left: 25rem;
   top: 0;
   width: calc(100vw - 25rem);
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   background: #141d22;
 }
 
 .informationMain h1 {
-  font-size: 6rem;
+  color: rgb(255, 255, 255);
+  font-family: monospace;
+  margin-top: 3rem;
+  font-size: 3rem;
+  background-image: linear-gradient(90deg, #fa8142, #ff4088);
+  padding: 1rem 2rem;
+  border-radius: 5px;
+}
+
+.infoSteps {
+  margin-top: 5rem;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.step {
+  background-color: #2e3a3f;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
+}
+.step h2 {
+  font-size: 2.2rem;
+}
+
+.conenetImg {
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 3rem;
+  align-self: center;
+}
+
+.conenetImg img {
+  margin-bottom: 2rem;
+  object-fit: cover;
+  border-radius: 6px;
+  width: 80%;
+  background-position: center;
 }

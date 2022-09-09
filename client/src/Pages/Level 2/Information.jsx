@@ -3,6 +3,10 @@ import SideNavbar from "../../Components/SideNavbar";
 import "./Information.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import regis from "../../assets/infoAssets/registrationDemo.png";
+import vote1 from "../../assets/infoAssets/vote1.png";
+import vote2 from "../../assets/infoAssets/vote2.png";
+import resultImg from "../../assets/infoAssets/resultImg.png";
 
 const Information = () => {
   const navigate = useNavigate();
@@ -62,6 +66,82 @@ const Information = () => {
           <ToastContainer theme="colored" />
           <div className="informationMain">
             <h1>Information Section</h1>
+            <div className="infoSteps">
+              <div className="step">
+                <h2> 1. How To Install Metamask ?</h2>
+                <div className="conenetImg">
+                  <iframe
+                    width="900"
+                    height="415"
+                    src="https://www.youtube.com/embed/cn8gKxUSquo"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+
+              <div className="step">
+                <h2> 2. Select Rinkeby Test Network In Metamask</h2>
+                <div className="conenetImg">
+                  <iframe
+                    width="900"
+                    height="415"
+                    src="https://www.youtube.com/embed/dSx14epF1lc"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+
+              <div className="step">
+                <h2> 3. Select Rinkeby Test Network In Metamask</h2>
+                <div className="conenetImg">
+                  <iframe
+                    width="900"
+                    height="415"
+                    src="https://www.youtube-nocookie.com/embed/f9AbCK6PwmM"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+
+              <div className="step">
+                <h2>
+                  4. Fill the Details For Voting In Vote Registration Section
+                  And Wait For Metamask Confirmation
+                </h2>
+                <div className="conenetImg">
+                  <img src={regis} alt="regisImg" />
+                </div>
+              </div>
+
+              <div className="step">
+                <h2>
+                  5. Select Candidate In Voting Area Section and Wait For
+                  Maetamask Confirmation
+                </h2>
+                <div className="conenetImg">
+                  <img src={vote1} alt="voteimg" />
+                  <img src={vote2} alt="voteimg" />
+                </div>
+              </div>
+
+              <div className="step">
+                <h2>
+                  6. After Result Declaration You Can See Result In Result area
+                </h2>
+                <div className="conenetImg">
+                  <img src={resultImg} alt="resultImg" />
+                </div>
+              </div>
+            </div>
           </div>
         </>
       )}
