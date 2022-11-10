@@ -5,7 +5,7 @@ import { ToastContainer, toast, Flip } from "react-toastify";
 import { ethers } from "ethers";
 import { useNavigate } from "react-router-dom";
 import electionAbi from "../../Contract/election.json";
-const contractAddress = "0x7148738AA7503e41Db6Ab6143eAccd68641E3EcF";
+const contractAddress = "0xab6D16DC8982DA77C4d8Fb1b01CD0053AbFc8007";
 
 const AddCandidates = () => {
   const navigate = useNavigate();

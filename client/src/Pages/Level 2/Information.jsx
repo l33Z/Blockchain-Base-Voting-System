@@ -98,7 +98,7 @@ const Information = () => {
               </div>
 
               <div className="step">
-                <h2> 3. Select Rinkeby Test Network In Metamask</h2>
+                <h2> 3. Add Ether To Rinkeby Test Network</h2>
                 <div className="conenetImg">
                   <iframe
                     width="900"
@@ -125,7 +125,7 @@ const Information = () => {
               <div className="step">
                 <h2>
                   5. Select Candidate In Voting Area Section and Wait For
-                  Maetamask Confirmation
+                  Metamask Confirmation
                 </h2>
                 <div className="conenetImg">
                   <img src={vote1} alt="voteimg" />
