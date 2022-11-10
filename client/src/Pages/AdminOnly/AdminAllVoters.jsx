@@ -77,7 +77,7 @@ const AdminAllVoters = () => {
             <>
               <div className="allVotersContainer">
                 <div className="allVotersMain">
-                  <h1>Total Voters : {TotalVotersCount}</h1>
+                  {/* <h1>Total Voters : {TotalVotersCount}</h1> */}
                   <div className="voterMainTable">
                     {AllVoterList.map((voter) => {
                       if (voter.voterId) {

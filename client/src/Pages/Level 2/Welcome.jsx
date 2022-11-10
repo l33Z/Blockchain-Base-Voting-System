@@ -169,7 +169,7 @@ const Welcome = () => {
                 <h2> - Follow Below Step To Connect To BlockChain</h2>
                 <div className="steps">
                   <h3>1. First Connect To Metamask Wallet</h3>
-                  <h3>2. Select Network To Rinkeby Test Network</h3>
+                  <h3>2. Select Network To Goerli Test Network</h3>
                   <h3>
                     3. Check The Balance Of connected Account It should be not
                     Zero

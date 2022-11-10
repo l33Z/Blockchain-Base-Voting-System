@@ -83,7 +83,7 @@ const Information = () => {
               </div>
 
               <div className="step">
-                <h2> 2. Select Rinkeby Test Network In Metamask</h2>
+                <h2> 2. Select Goerli Test Network In Metamask</h2>
                 <div className="conenetImg">
                   <iframe
                     width="900"
@@ -98,12 +98,12 @@ const Information = () => {
               </div>
 
               <div className="step">
-                <h2> 3. Add Ether To Rinkeby Test Network</h2>
+                <h2> 3. Add Ether To Goerli Test Network</h2>
                 <div className="conenetImg">
                   <iframe
                     width="900"
                     height="415"
-                    src="https://www.youtube-nocookie.com/embed/f9AbCK6PwmM"
+                    src="https://www.youtube.com/embed/f9-mxDQQ3-g"
                     title="YouTube video player"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
